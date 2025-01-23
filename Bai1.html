@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // Khởi tạo mảng số nguyên
+    let numbers = [];
+
+    // Hàm thêm số vào mảng
+    function addNumber() {
+        while (numbers.length < 20) {
+            let input = prompt("Nhập một số nguyên (hoặc 'done' để kết thúc):");
+            if (input.toLowerCase() === 'done') {
+                break;
+            }
+            let num = parseInt(input);
+            if (!isNaN(num)) {
+                numbers.push(num);
+                console.log(`Đã thêm số: ${num}`);
+            } else {
+                alert("Vui lòng nhập số nguyên hợp lệ.");
+            }
+        }
+    }
+
+    // Hàm hiển thị mảng
+    function displayArray(arr) {
+        console.log("Mảng số nguyên:", arr);
+    }
+
+    // Hàm tìm các bội chung của 3 và 5
+    function findMultiplesOf3And5(arr) {
+        let multiples = arr.filter(num => num % 3 === 0 && num % 5 === 0);
+        let sum = multiples.reduce((acc, num) => acc + num, 0);
+
+        // Hiển thị kết quả
+        console.log("Các số là bội chung của 3 và 5:", multiples);
+        console.log("Tổng của các số đó:", sum);
+    }
+
+    // Gọi các hàm
+    addNumber();           // Nhập số vào mảng
+    displayArray(numbers); // Hiển thị mảng
+    findMultiplesOf3And5(numbers); // Tìm và tính tổng
+
+</script>
+</body>
+</html>
