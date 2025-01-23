@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Làm tròn điểm số</title>
+</head>
+<body>
+<script>
+    // Hàm làm tròn điểm số theo quy tắc của giáo viên Trung
+    function lamTronDiem(diem) {
+        // Kiểm tra nếu điểm số dưới 50 thì tính là trượt
+        if (diem < 50) {
+            alert(`Điểm ${diem} là trượt.`);
+            return diem; // Không làm tròn
+        }
+
+        // Tìm bội số tiếp theo của 5
+        let diemLamTron = Math.ceil(diem / 5) * 5;
+
+        // Kiểm tra khoảng cách từ điểm số đến bội số tiếp theo của 5
+        if (diemLamTron - diem < 3 && diem >= 48) {
+            // Nếu khoảng cách nhỏ hơn 3 thì làm tròn lên
+            alert(`Điểm ${diem} được làm tròn thành ${diemLamTron}.`);
+            return diemLamTron;
+        } else {
+            // Nếu không thì giữ nguyên điểm số
+            alert(`Điểm ${diem} không thay đổi.`);
+            return diem;
+        }
+    }
+
+    // Gọi hàm và thử nghiệm với các điểm số khác nhau
+    lamTronDiem(84);  // 84 sẽ làm tròn thành 85
+    lamTronDiem(77);  // 77 sẽ không làm tròn
+    lamTronDiem(44);  // 44 sẽ không làm tròn vì trượt
+</script>
+</body>
+</html>

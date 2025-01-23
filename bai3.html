@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đếm cặp số thỏa mãn</title>
+</head>
+<body>
+<script>
+    // Hàm kiểm tra điều kiện của mảng
+    function kiemTraMangHopLe(mang) {
+        if (mang.length < 1 || mang.length > 50) {
+            return false; // Mảng phải có từ 1 đến 50 phần tử
+        }
+        for (let so of mang) {
+            if (typeof so !== 'number' || !Number.isInteger(so)) {
+                return false; // Phải là số nguyên
+            }
+        }
+        return true;
+    }
+
+    // Hàm đếm và hiển thị các cặp có tổng chia hết cho k
+    function demCacCap(mang, k) {
+        let soLuongCap = 0;
+        let cacCap = []; // Mảng lưu các cặp thỏa mãn yêu cầu
+        let n = mang.length;
+        for (let i = 0; i < n; i++) {
+            for (let j = i + 1; j < n; j++) {
+                if ((mang[i] + mang[j]) % k === 0) {
+                    soLuongCap++;
+                    cacCap.push(`(${mang[i]}, ${mang[j]})`); // Thêm cặp vào danh sách
+                }
+            }
+        }
+        return { soLuongCap, cacCap };
+    }
+
+    // Hàm nhập mảng và số k từ người dùng
+    function nhapVaXuLy() {
+        // Nhập mảng số nguyên từ người dùng
+        let mang = prompt("Nhập các phần tử của mảng, cách nhau bằng dấu phẩy: ").split(',').map(Number);
+
+        // Kiểm tra điều kiện của mảng
+        if (!kiemTraMangHopLe(mang)) {
+            alert("Mảng không hợp lệ. Mảng phải có từ 1 đến 50 phần tử và tất cả các phần tử phải là số nguyên.");
+            return;
+        }
+
+        // Nhập k
+        let k = parseInt(prompt("Nhập số nguyên dương k: "));
+
+        // Kiểm tra k có phải là số nguyên dương không
+        if (isNaN(k) || k <= 0) {
+            alert("k phải là một số nguyên dương.");
+            return;
+        }
+
+        // Tính số lượng cặp có tổng chia hết cho k
+        let ketQua = demCacCap(mang, k);
+        alert(`Số lượng cặp có tổng chia hết cho ${k} là: ${ketQua.soLuongCap}`);
+        alert("Các cặp số thỏa mãn yêu cầu: " + ketQua.cacCap.join(", "));
+    }
+
+    // Gọi hàm xử lý
+    nhapVaXuLy();
+</script>
+</body>
+</html>

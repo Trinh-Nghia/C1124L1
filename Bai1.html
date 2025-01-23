@@ -6,45 +6,72 @@
 </head>
 <body>
 <script>
-    // Khởi tạo mảng số nguyên
-    let numbers = [];
+    // Mảng số nguyên
+    let mang = [];
 
-    // Hàm thêm số vào mảng
-    function addNumber() {
-        while (numbers.length < 20) {
-            let input = prompt("Nhập một số nguyên (hoặc 'done' để kết thúc):");
-            if (input.toLowerCase() === 'done') {
-                break;
-            }
-            let num = parseInt(input);
-            if (!isNaN(num)) {
-                numbers.push(num);
-                console.log(`Đã thêm số: ${num}`);
-            } else {
-                alert("Vui lòng nhập số nguyên hợp lệ.");
-            }
+    // Hàm kiểm tra số có phải là bội chung của 3 và 5 không
+    function isBoiChung3Va5(so) {
+        return so % 3 === 0 && so % 5 === 0;
+    }
+
+    // Hàm thêm phần tử vào mảng
+    function themPhanTuVaoMang() {
+        // Kiểm tra số phần tử không vượt quá 20
+        if (mang.length >= 20) {
+            console.log("Mảng chỉ có tối đa 20 phần tử.");
+            return;
         }
+
+        // Nhập số từ người dùng
+        const phanTu = parseInt(prompt("Nhập số nguyên:"));
+
+        // Kiểm tra nếu phần tử nhập vào là số nguyên
+        if (isNaN(phanTu)) {
+            console.log("Vui lòng nhập số nguyên!");
+            return;
+        }
+
+        // Thêm phần tử vào mảng
+        mang.push(phanTu);
+        console.log("Mảng hiện tại:", mang);
     }
 
-    // Hàm hiển thị mảng
-    function displayArray(arr) {
-        console.log("Mảng số nguyên:", arr);
+    // Hàm tính tổng các số là bội chung của 3 và 5
+    function tinhTongBoiChung3Va5() {
+        let tong = 0;
+
+        // Lọc các số là bội chung của 3 và 5 và tính tổng
+        mang.forEach(so => {
+            if (isBoiChung3Va5(so)) {
+                tong += so;
+            }
+        });
+
+        // Hiển thị tổng
+        console.log("Tổng các số là bội chung của 3 và 5:", tong);
     }
 
-    // Hàm tìm các bội chung của 3 và 5
-    function findMultiplesOf3And5(arr) {
-        let multiples = arr.filter(num => num % 3 === 0 && num % 5 === 0);
-        let sum = multiples.reduce((acc, num) => acc + num, 0);
+    // Hàm thực thi chương trình
+    function chayChuongTrinh() {
+        let soLuongPhanTu = parseInt(prompt("Nhập số lượng phần tử trong mảng (tối đa 20):"));
 
-        // Hiển thị kết quả
-        console.log("Các số là bội chung của 3 và 5:", multiples);
-        console.log("Tổng của các số đó:", sum);
+        // Kiểm tra số lượng phần tử không vượt quá 20
+        if (soLuongPhanTu > 20) {
+            console.log("Mảng chỉ có tối đa 20 phần tử.");
+            return;
+        }
+
+        // Thêm phần tử vào mảng
+        for (let i = 0; i < soLuongPhanTu; i++) {
+            themPhanTuVaoMang();
+        }
+
+        // Tính tổng các số là bội chung của 3 và 5
+        tinhTongBoiChung3Va5();
     }
 
-    // Gọi các hàm
-    addNumber();           // Nhập số vào mảng
-    displayArray(numbers); // Hiển thị mảng
-    findMultiplesOf3And5(numbers); // Tìm và tính tổng
+    // Chạy chương trình
+    chayChuongTrinh();
 
 </script>
 </body>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Khách Hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        input, button {
+            padding: 8px;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Quản lý Khách Hàng Công Ty Bất Động Sản</h1>
+
+<!-- Form nhập thông tin khách hàng -->
+<h3>Thêm mới khách hàng</h3>
+<form id="formKhachHang">
+    <input type="text" id="maKhachHang" placeholder="Mã khách hàng" required><br>
+    <input type="text" id="tenKhachHang" placeholder="Tên khách hàng" required><br>
+    <input type="text" id="soDienThoai" placeholder="Số điện thoại" required><br>
+    <input type="text" id="diaChi" placeholder="Địa chỉ" required><br>
+    <input type="email" id="email" placeholder="Email" required><br>
+    <button type="submit">Thêm khách hàng</button>
+</form>
+
+<!-- Danh sách khách hàng -->
+<h3>Danh sách khách hàng</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Mã Khách Hàng</th>
+        <th>Tên Khách Hàng</th>
+        <th>Số Điện Thoại</th>
+        <th>Địa Chỉ</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody id="danhSachKhachHang">
+    <!-- Danh sách khách hàng sẽ được thêm vào đây -->
+    </tbody>
+</table>
+
+<script>
+    // Tạo đối tượng Khách Hàng
+    class KhachHang {
+        constructor(maKhachHang, tenKhachHang, soDienThoai, diaChi, email) {
+            this.maKhachHang = maKhachHang;
+            this.tenKhachHang = tenKhachHang;
+            this.soDienThoai = soDienThoai;
+            this.diaChi = diaChi;
+            this.email = email;
+        }
+    }
+
+    // Mảng lưu trữ danh sách khách hàng
+    let danhSachKhachHang = [];
+
+    // Hàm thêm khách hàng vào danh sách
+    function themKhachHang() {
+        const maKhachHang = document.getElementById("maKhachHang").value;
+        const tenKhachHang = document.getElementById("tenKhachHang").value;
+        const soDienThoai = document.getElementById("soDienThoai").value;
+        const diaChi = document.getElementById("diaChi").value;
+        const email = document.getElementById("email").value;
+
+        // Tạo đối tượng khách hàng mới
+        let khachHangMoi = new KhachHang(maKhachHang, tenKhachHang, soDienThoai, diaChi, email);
+
+        // Thêm khách hàng vào danh sách
+        danhSachKhachHang.push(khachHangMoi);
+
+        // Hiển thị lại danh sách khách hàng
+        hienThiDanhSachKhachHang();
+
+        // Reset form
+        document.getElementById("formKhachHang").reset();
+    }
+
+    // Hàm hiển thị danh sách khách hàng
+    function hienThiDanhSachKhachHang() {
+        let tbody = document.getElementById("danhSachKhachHang");
+        tbody.innerHTML = ""; // Xóa danh sách hiện tại
+
+        // Duyệt qua danh sách khách hàng và thêm vào bảng
+        danhSachKhachHang.forEach(khachHang => {
+            let row = tbody.insertRow();
+            row.insertCell(0).textContent = khachHang.maKhachHang;
+            row.insertCell(1).textContent = khachHang.tenKhachHang;
+            row.insertCell(2).textContent = khachHang.soDienThoai;
+            row.insertCell(3).textContent = khachHang.diaChi;
+            row.insertCell(4).textContent = khachHang.email;
+        });
+    }
+
+    // Lắng nghe sự kiện form submit
+    document.getElementById("formKhachHang").addEventListener("submit", function(event) {
+        event.preventDefault(); // Ngừng hành động mặc định của form
+        themKhachHang();
+    });
+</script>
+
+</body>
+</html>
